@@ -33,6 +33,7 @@ export type Guest = {
   additionalGuests?: number;
   foodOrder?: string;
   note?: string;
+  tableNumber?: number; 
 }
 
 export type Task = {
