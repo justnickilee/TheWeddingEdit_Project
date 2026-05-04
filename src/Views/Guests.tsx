@@ -1,9 +1,8 @@
 import type * as Types from '../Models/Types';
 import { useState } from 'react';
+import * as DatabaseHandler from '../Handlers/DatabaseHandler.tsx';
 
-export function Guests(props: { guests: Types.Guest[] }) {
-    const [guestsState, setGuestsState] = useState(props.guests);
-
+export function Guests() {
     return (
         <div className="flex flex-col justify-start items-start page">
             <h3>Wedding Guests</h3>
@@ -19,7 +18,9 @@ export function Guests(props: { guests: Types.Guest[] }) {
             </div>
         </div>);
 
-    function GuestList() {
+    async function GuestList() {
+        const [guestsState, setGuestsState] = useState(await DatabaseHandler.getGuests());
+
         if (guestsState.length === 0) {
             return (
                 <div>You can keep track of your wedding guests here. Click the button above to start adding your guests!</div>

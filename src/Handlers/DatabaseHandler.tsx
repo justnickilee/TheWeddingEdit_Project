@@ -15,7 +15,7 @@ export function openDatabase(): Promise<IDBDatabase> {
             reject('Encountered an error while attempting to open the database.');
         };
 
-        openDbRequest.onsuccess = (event) => {
+        openDbRequest.onsuccess = (event) => { 
             database = (event.target as IDBRequest).result;
             resolve((event.target as IDBRequest).result);
         };
