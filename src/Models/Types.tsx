@@ -13,7 +13,15 @@ export type Vendor = {
 export type ContactInformation = {
   phone?: string;
   email?: string;
-  address?: string;
+  address?: Address;
+}
+
+export type Address = {
+  addressLineOne: string;
+  addressLineTwo?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
 }
 
 export type PaymentDeadline = {
