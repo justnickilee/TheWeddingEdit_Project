@@ -2,6 +2,7 @@ import type * as Types from '../Models/Types';
 import * as Enums from '../Models/Enums';
 import { useState, useEffect } from 'react';
 import * as DatabaseHandler from '../Handlers/DatabaseHandler.tsx';
+import uuid from 'react-uuid';
 
 import '../css/guests.css';
 
@@ -36,11 +37,11 @@ export function Guests() {
     );
 }
 
-function GuestStatusOption(props : { key : string, value : string }) {
-    const optionId = `guest-status-option-${props.key}`;
+function GuestStatusOption(props : { enumKey : string, value : string }) {
+    const optionId = `guest-status-option-${props.enumKey}`;
 
     return (
-        <option id={optionId} className="guest-status-option" value={props.key}>{props.value}</option>
+        <option id={optionId} className="guest-status-option" value={props.enumKey}>{props.value}</option>
     );
 }
 
@@ -69,62 +70,88 @@ function GuestList() {
         );
 
     return (
-        guestsState.map(guest => <GuestEntry {...guest} key={guest.id}/>)
+        guestsState.map(guest => <GuestEntry guest={guest} key={guest.id}/>)
     );
 }
 
 function NewGuestsForm() {
+    const defaultGuest : Types.Guest = {
+            id: uuid(),
+            firstName: ""
+        };
+
+    const [newGuestState, setNewGuestState] = useState(defaultGuest);
+
+    function validatedSetNewGuestState(guest : Types.Guest) {
+        if (!guest.firstName) {
+            console.log("Invalid first name entry. The first name field is required.");
+            return;
+        }
+
+        setNewGuestState(guest);
+    }
+
+    async function saveGuests() {
+
+    }
+
+
+
     return (
         <div id="new-guest-form" className="flex flex-col w-full">
             <label className="justify-center mb-3">Guest Name</label>
             <div className="flex flex-row justify-between align-center gap-x-3 mb-10">
-                <input id="new-guest-first-name" className="w-1/2" value="" placeholder="First Name" required/>
-                <input id="new-guest-last-name" className="w-1/2" value="" placeholder="Last Name"/>
+                <input type="text" id="new-guest-first-name" className="w-1/2" value={newGuestState.firstName} placeholder="First Name (required)" required 
+                    onChange={e => validatedSetNewGuestState({...newGuestState, firstName: e.target.value})}/>
+                <input type="text" id="new-guest-last-name" className="w-1/2" value={newGuestState.lastName} placeholder="Last Name"
+                    onChange={e => setNewGuestState(prevState => ({...prevState, lastName: e.target.value}))}/>
             </div>
 
             <label className="justify-center mb-3">Contact Information</label>
             <div id="guest-contact-information" className="mb-10">
                 <div className="flex flex-row justify-between align-center gap-x-3 mb-3" >
-                    <input id="guest-email" className="w-1/2" value="" placeholder="Email" />
-                    <input id="guest-phone-number" className="w-1/2" value="" placeholder="Phone Number" />
+                    <input type="text" id="guest-email" className="w-1/2" value={newGuestState.contactInformation?.email} placeholder="Email" 
+                        onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, email: e.target.value}}))}/>
+                    <input type="text" id="guest-phone-number" className="w-1/2" value={newGuestState.contactInformation?.phone} placeholder="Phone Number" 
+                        onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, phone: e.target.value}}))}/>
                 </div>
-                <input id="guest-address-line-one" className="w-full mb-3" value="" placeholder="Address Line 1"/>
-                <input id="guest-address-line-two" className="w-full mb-3" value="" placeholder="Address Line 2"/>
+                <input type="text" id="guest-address-line-one" className="w-full mb-3" value={newGuestState.contactInformation?.address?.addressLineOne} placeholder="Address Line 1"
+                    onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, address: {...prevState.contactInformation?.address, addressLineOne: e.target.value}}}))}/>
+                <input type="text" id="guest-address-line-two" className="w-full mb-3" value={newGuestState.contactInformation?.address?.addressLineTwo} placeholder="Address Line 2"
+                    onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, address: {...prevState.contactInformation?.address, addressLineOne: prevState.contactInformation?.address?.addressLineOne ?? "", addressLineTwo: e.target.value}}}))}/>
                 <div className="flex flex-row justify-between align-center gap-x-3">
-                    <input id="guest-address-city" className="w-1/3" value="" placeholder="City" />
-                    <input id="guest-address-state" className="w-1/3" value="" placeholder="State" />
-                    <input id="guest-address-zip" className="w-1/3" value="" placeholder="Zip Code" />
+                    <input type="text" id="guest-address-city" className="w-1/3" value={newGuestState.contactInformation?.address?.city} placeholder="City" 
+                        onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, address: {...prevState.contactInformation?.address, addressLineOne: prevState.contactInformation?.address?.addressLineOne ?? "", city: e.target.value}}}))}/>
+                    <input type="text" id="guest-address-state" className="w-1/3" value={newGuestState.contactInformation?.address?.state} placeholder="State" 
+                        onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, address: {...prevState.contactInformation?.address, addressLineOne: prevState.contactInformation?.address?.addressLineOne ?? "", state: e.target.value}}}))}/>
+                    <input type="text" id="guest-address-zip" className="w-1/3" value={newGuestState.contactInformation?.address?.zip} placeholder="Zip Code" 
+                        onChange={e => setNewGuestState(prevState => ({...prevState, contactInformation: {...prevState.contactInformation, address: {...prevState.contactInformation?.address, addressLineOne: prevState.contactInformation?.address?.addressLineOne ?? "", zip: e.target.value}}}))}/>
                 </div>
             </div>
 
             <div className="flex flex-row justify-start align-center mb-10 gap-x-3">
                 <label htmlFor="guest-status-select">Guest Status</label>
-                <select id="guest-status-select">
+                <select id="guest-status-select" value={Object.keys(Enums.GuestStatus).find((key) => Enums.GuestStatus[key as keyof typeof Enums.GuestStatus] === newGuestState.status)} onChange={e => setNewGuestState(prevState => ({...prevState, status: Enums.GuestStatus[e.target.value as keyof typeof Enums.GuestStatus]}))}>
                     { 
-                        Object.entries(Enums.GuestStatus).map(([key, value]) => <GuestStatusOption key={key} value={value}/>)
+                        Object.entries(Enums.GuestStatus).map(([key, value]) => <GuestStatusOption key={key} enumKey={key} value={value}/>)
                     }
                 </select>
             </div>
 
-            <SaveNewGuestsButton />
+            <button className="btn bg-success" type="button" onClick={saveGuests}>Save Guest</button>
         </div>
     );
 }
 
 
-function GuestEntry(guest : Types.Guest) {
+function GuestEntry(props : { guest : Types.Guest }) {
+    const guest = props.guest;
     const guestName = `${guest.firstName}${!guest.lastName ? "" : " " + guest.lastName}`;
 
     return (
         <div data-guest-id={guest.id} className="guest-entry flex justify-between w-full">
             <span>{guestName}</span>
         </div>
-    );
-}
-
-function SaveNewGuestsButton() {
-    return (
-        <button className="btn bg-success" type="button">Save Guest</button>
     );
 }
 
