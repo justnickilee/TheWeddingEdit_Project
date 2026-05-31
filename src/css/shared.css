@@ -43,6 +43,19 @@
     text-wrap-mode: nowrap;
 }
 
+.btn-group {
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.btn-group > * {
+    border-radius: 0;
+    height: 100%;
+}
+
 .bg-primary {
     background-color: var(--primary);
 }
