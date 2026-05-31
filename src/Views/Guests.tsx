@@ -76,29 +76,29 @@ function GuestList() {
 function NewGuestsForm() {
     return (
         <div id="new-guest-form" className="flex flex-col w-full">
-            <h4>Guest Name</h4>
-            <div className="flex flex-row justify-between align-center gap-x-3">
-                <input id="new-guest-first-name" value="" placeholder="First Name" required/>
-                <input id="new-guest-last-name" value="" placeholder="Last Name"/>
+            <label className="justify-center mb-3">Guest Name</label>
+            <div className="flex flex-row justify-between align-center gap-x-3 mb-10">
+                <input id="new-guest-first-name" className="w-1/2" value="" placeholder="First Name" required/>
+                <input id="new-guest-last-name" className="w-1/2" value="" placeholder="Last Name"/>
             </div>
 
-            <h4>Contact Information</h4>
-            <div id="guest-contact-information">
-                <div className="flex flex-row justify-between align-center gap-x-3" >
-                    <input id="guest-email" value="" placeholder="Email" />
-                    <input id="guest-phone-number" value="" placeholder="Phone Number" />
+            <label className="justify-center mb-3">Contact Information</label>
+            <div id="guest-contact-information" className="mb-10">
+                <div className="flex flex-row justify-between align-center gap-x-3 mb-3" >
+                    <input id="guest-email" className="w-1/2" value="" placeholder="Email" />
+                    <input id="guest-phone-number" className="w-1/2" value="" placeholder="Phone Number" />
                 </div>
-                <input id="guest-address-line-one" value="" placeholder="Address Line 1"/>
-                <input id="guest-address-line-two" value="" placeholder="Address Line 2"/>
+                <input id="guest-address-line-one" className="w-full mb-3" value="" placeholder="Address Line 1"/>
+                <input id="guest-address-line-two" className="w-full mb-3" value="" placeholder="Address Line 2"/>
                 <div className="flex flex-row justify-between align-center gap-x-3">
-                    <input id="guest-address-city" value="" placeholder="City" />
-                    <input id="guest-address-state" value="" placeholder="State" />
-                    <input id="guest-address-zip" value="" placeholder="Zip Code" />
+                    <input id="guest-address-city" className="w-1/3" value="" placeholder="City" />
+                    <input id="guest-address-state" className="w-1/3" value="" placeholder="State" />
+                    <input id="guest-address-zip" className="w-1/3" value="" placeholder="Zip Code" />
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between align-center">
-                <label htmlFor="guest-status-select"></label>
+            <div className="flex flex-row justify-start align-center mb-10 gap-x-3">
+                <label htmlFor="guest-status-select">Guest Status</label>
                 <select id="guest-status-select">
                     { 
                         Object.entries(Enums.GuestStatus).map(([key, value]) => <GuestStatusOption key={key} value={value}/>)
@@ -124,7 +124,7 @@ function GuestEntry(guest : Types.Guest) {
 
 function SaveNewGuestsButton() {
     return (
-        <button></button>
+        <button className="btn bg-success" type="button">Save Guest</button>
     );
 }
 

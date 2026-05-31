@@ -76,6 +76,10 @@
     background-color: var(--background);
 }
 
+.bg-background-dark {
+    background-color: var(--background-dark);
+}
+
 .text-primary {
     color: var(--primary);
 }
@@ -96,7 +100,20 @@
     color: var(--background);
 }
 
+.text-background-dark {
+    color:var(--background-dark);
+}
+
 input {
+    background-color: var(--background-dark);
+    border-radius: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+select {
     background-color: var(--background-dark);
     border-radius: 0.5rem;
     padding-left: 0.5rem;
@@ -107,4 +124,7 @@ input {
 
 label {
     font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
