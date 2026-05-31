@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+#guests-page #manage-guests-view,
+#guests-page.adding-guests #new-guests-view {
+    display: flex;
+    flex-direction: column;
+}
+
+#guests-page.adding-guests #manage-guests-view,
+#guests-page #new-guests-view {
+    display: none;
+}
+
+#guests-page:not(.adding-guests) #manage-guests-view-nav-button,
+#guests-page.adding-guests #new-guests-view-nav-button {
+    background-color: var(--primary-dark);
+}
+
+.guests-page-nav-button {
+    background-color: var(--primary);
+    color: var(--background);
+    font-weight: 700;
+}
