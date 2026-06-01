@@ -8,6 +8,7 @@ import '../css/guests.css';
 
 export function Guests() {
     const [isAddingGuestsState, setIsAddingGuestsState] = useState(false);
+    const [inGuestSelectModeState, setInGuestSelectModeState] = useState(false);
 
     return (
         <div id="guests-page" className={`flex flex-col justify-start items-start page ${isAddingGuestsState ? "adding-guests" : ""}`}>
@@ -22,6 +23,7 @@ export function Guests() {
 
             <div id="manage-guests-view" className="w-full pt-3">
                 <div id="guest-list-controls" className="flex w-full justify-start gap-x-3 mb-3">
+                    <input id="enter-guest-select-mode" type="checkbox" checked={inGuestSelectModeState} onChange={e => setInGuestSelectModeState(e.target.checked)}/>
                     <span id="guest-list-filter">Filter</span>
                     <textarea id="guest-list-search" placeholder="Search Guests"></textarea>
                 </div>
