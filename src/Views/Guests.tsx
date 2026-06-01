@@ -37,14 +37,6 @@ export function Guests() {
     );
 }
 
-function GuestStatusOption(props : { enumKey : string, value : string }) {
-    const optionId = `guest-status-option-${props.enumKey}`;
-
-    return (
-        <option id={optionId} className="guest-status-option" value={props.enumKey}>{props.value}</option>
-    );
-}
-
 function GuestList() {
     const [guestsState, setGuestsState] = useState(Array<Types.Guest>());
     const [isLoadingState, setIsLoadingState] = useState(true);
@@ -71,6 +63,17 @@ function GuestList() {
 
     return (
         guestsState.map(guest => <GuestEntry guest={guest} key={guest.id}/>)
+    );
+}
+
+function GuestEntry(props : { guest : Types.Guest }) {
+    const guest = props.guest;
+    const guestName = `${guest.firstName}${!guest.lastName ? "" : " " + guest.lastName}`;
+
+    return (
+        <div data-guest-id={guest.id} className="guest-entry flex justify-between w-full">
+            <span>{guestName}</span>
+        </div>
     );
 }
 
@@ -170,15 +173,11 @@ function NewGuestsForm() {
     );
 }
 
-
-function GuestEntry(props : { guest : Types.Guest }) {
-    const guest = props.guest;
-    const guestName = `${guest.firstName}${!guest.lastName ? "" : " " + guest.lastName}`;
+function GuestStatusOption(props : { enumKey : string, value : string }) {
+    const optionId = `guest-status-option-${props.enumKey}`;
 
     return (
-        <div data-guest-id={guest.id} className="guest-entry flex justify-between w-full">
-            <span>{guestName}</span>
-        </div>
+        <option id={optionId} className="guest-status-option" value={props.enumKey}>{props.value}</option>
     );
 }
 
