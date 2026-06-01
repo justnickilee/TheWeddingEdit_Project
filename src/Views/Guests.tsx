@@ -75,12 +75,25 @@ function GuestList() {
 }
 
 function NewGuestsForm() {
-    const defaultGuest : Types.Guest = {
+    const blankGuest : Types.Guest = {
             id: uuid(),
-            firstName: ""
+            firstName: "",
+            lastName: "",
+            contactInformation: {
+                email: "",
+                phone: "",
+                address: {
+                    addressLineOne: "",
+                    addressLineTwo: "",
+                    city: "",
+                    state: "",
+                    zip: ""
+                }
+            },
+            status: Enums.GuestStatus.None
         };
 
-    const [newGuestState, setNewGuestState] = useState(defaultGuest);
+    const [newGuestState, setNewGuestState] = useState(blankGuest);
 
     function validatedSetNewGuestState(guest : Types.Guest) {
         if (!guest.firstName) {
@@ -92,10 +105,24 @@ function NewGuestsForm() {
     }
 
     async function saveGuests() {
+        if (!newGuestState.firstName) {
+            console.log("Invalid first name entry. The first name field is required.");
+            // TODO: display error message to the user explaining what's wrong
+            return;
+        }
 
+        const validatedAddress = newGuestState.contactInformation?.address?.addressLineOne 
+            ? newGuestState.contactInformation?.address 
+            : undefined;
+
+        const validatedGuest = ({...newGuestState, contactInformation: {...newGuestState.contactInformation, address: validatedAddress} });
+
+        const result = await DatabaseHandler.addGuest(validatedGuest);
+
+        setNewGuestState(blankGuest);
+
+        //TODO: alert success or failure
     }
-
-
 
     return (
         <div id="new-guest-form" className="flex flex-col w-full">
