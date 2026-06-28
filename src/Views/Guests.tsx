@@ -28,7 +28,7 @@ export function Guests() {
                     <textarea id="guest-list-search" placeholder="Search Guests"></textarea>
                 </div>
                 <div id="guest-list">
-                    <GuestList />
+                    <GuestList isInGuestSelectMode={inGuestSelectModeState}/>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@ export function Guests() {
     );
 }
 
-function GuestList() {
+function GuestList(props: { isInGuestSelectMode: boolean }) {
     const [guestsState, setGuestsState] = useState(Array<Types.Guest>());
     const [isLoadingState, setIsLoadingState] = useState(true);
 
@@ -64,17 +64,18 @@ function GuestList() {
         );
 
     return (
-        guestsState.map(guest => <GuestEntry guest={guest} key={guest.id}/>)
+        guestsState.map(guest => <GuestEntry guest={guest} isInGuestSelectMode={props.isInGuestSelectMode} key={guest.id} />)
     );
 }
 
-function GuestEntry(props : { guest : Types.Guest }) {
+function GuestEntry(props: { guest: Types.Guest, isInGuestSelectMode: boolean }) {
     const guest = props.guest;
     const guestName = `${guest.firstName}${!guest.lastName ? "" : " " + guest.lastName}`;
+    const [isSelectedState, setIsSelectedState] = useState(false);
 
     return (
         <div data-guest-id={guest.id} className="guest-entry flex flex-row justify-start w-full">
-            <input id={`select-guest-input-${guest.id}`} className="select-guest-input" type="checkbox" checked={false}/>
+            <input id={`select-guest-input-${guest.id}`} className={`select-guest-input ${props.isInGuestSelectMode ? "" : "hidden"}`} type="checkbox" checked={isSelectedState} onChange={e => setIsSelectedState(e.target.checked)}/>
             <span>{guestName}</span>
             <span className="ml-auto" data-guest-status={guest.status}>{guest.status}</span>
         </div>
