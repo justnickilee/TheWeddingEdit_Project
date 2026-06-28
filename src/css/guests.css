@@ -21,3 +21,19 @@
     color: var(--background);
     font-weight: 700;
 }
+
+.guest-status-invited-icon {
+    color: var(--background-dark);
+}
+
+.guest-status-attending-icon {
+    color: var(--success);
+}
+
+.guest-status-not-attending-icon {
+    color: var(--danger);
+}
+
+.guest-status-maybe-attending-icon {
+    color: var(--secondary);
+}
