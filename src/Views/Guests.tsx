@@ -11,7 +11,7 @@ export function Guests() {
     const [inGuestSelectModeState, setInGuestSelectModeState] = useState(false);
 
     return (
-        <div id="guests-page" className={`flex flex-col justify-start items-start page ${isAddingGuestsState ? "adding-guests" : ""}`}>
+        <div id="guests-page" className={`flex flex-col justify-start items-start page ${isAddingGuestsState ? "adding-guests" : ""} ${inGuestSelectModeState ? "selecting-guests" : ""}`}>
             <div id="guests-page-nav-buttons" className="w-full btn-group">
                 <button id="manage-guests-view-nav-button" className="w-1/2 guests-page-nav-button" onClick={_ => { if (isAddingGuestsState) setIsAddingGuestsState(false) }}>
                     Manage Guests
@@ -73,8 +73,10 @@ function GuestEntry(props : { guest : Types.Guest }) {
     const guestName = `${guest.firstName}${!guest.lastName ? "" : " " + guest.lastName}`;
 
     return (
-        <div data-guest-id={guest.id} className="guest-entry flex justify-between w-full">
+        <div data-guest-id={guest.id} className="guest-entry flex flex-row justify-start w-full">
+            <input id={`select-guest-input-${guest.id}`} className="select-guest-input" type="checkbox" checked={false}/>
             <span>{guestName}</span>
+            <span className="ml-auto" data-guest-status={guest.status}>{guest.status}</span>
         </div>
     );
 }
