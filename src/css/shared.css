@@ -113,7 +113,8 @@ input {
     padding-bottom: 0.25rem;
 }
 
-select {
+select,
+textarea {
     background-color: var(--background-dark);
     border-radius: 0.5rem;
     padding-left: 0.5rem;

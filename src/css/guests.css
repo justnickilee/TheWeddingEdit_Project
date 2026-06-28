@@ -16,6 +16,14 @@
     background-color: var(--primary-dark);
 }
 
+#guest-list-controls > * {
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
 .guests-page-nav-button {
     background-color: var(--primary);
     color: var(--background);
