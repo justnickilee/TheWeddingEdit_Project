@@ -76,7 +76,7 @@ function GuestEntry(props: { guest: Types.Guest, isInGuestSelectMode: boolean })
     return (
         <div data-guest-id={guest.id} className="guest-entry flex flex-row justify-start w-full">
             <input id={`select-guest-input-${guest.id}`} 
-                className={`select-guest-input ${props.isInGuestSelectMode ? "" : "hidden"}`} 
+                className={`select-guest-input ${props.isInGuestSelectMode ? "" : "hidden"} mr-3`} 
                 type="checkbox" 
                 checked={props.isInGuestSelectMode && isSelectedState} 
                 onChange={e => setIsSelectedState(e.target.checked)}/>
