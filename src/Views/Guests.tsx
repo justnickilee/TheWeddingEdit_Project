@@ -22,6 +22,16 @@ export function Guests() {
         getGuestsFromIndexedDb()
     });
 
+    function getTotalGuestCount() {
+        var count = 0;
+
+        guestsState.forEach(guest => {
+            count += guest.additionalGuests === undefined ? 1 : guest.additionalGuests + 1;
+        });
+
+        return count;
+    }
+
     return (
         <div id="guests-page" className={`flex flex-col justify-start items-start page ${isAddingGuestsState ? "adding-guests" : ""} ${inGuestSelectModeState ? "selecting-guests" : ""}`}>
             <div id="guests-page-nav-buttons" className="w-full btn-group">
@@ -34,6 +44,12 @@ export function Guests() {
             </div>
 
             <div id="manage-guests-view" className="w-full pt-3">
+                <div id="guests-stats-row" className={`w-full ${guestsState.length === 0 ? "hidden" : ""}`}>
+                    <div className="guests-stat">
+                        <h4>Total Guests</h4>
+                        <h2>{getTotalGuestCount()}</h2>
+                    </div>
+                </div>
                 <div id="guest-list-controls" className="flex w-full justify-start gap-x-3 mb-3">
                     <input id="enter-guest-select-mode" type="checkbox" checked={inGuestSelectModeState} onChange={e => setInGuestSelectModeState(e.target.checked)}/>
                     <span id="guest-list-filter">Filter</span>

@@ -8,6 +8,6 @@ export const WeddingStoreName = "Wedding";
 
 export const DbConfig = Object({
     "IndexedDbName" : "TheWeddingEditDB",
-    "IndexedDbVersion" : 3,
+    "IndexedDbVersion" : 5,
     "DbStoreNames": [TasksStoreName, VendorsStoreName, GuestsStoreName, WeddingStoreName],
 });
