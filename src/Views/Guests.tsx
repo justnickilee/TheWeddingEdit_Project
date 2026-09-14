@@ -92,6 +92,7 @@ function NewGuestsForm() {
             id: uuid(),
             firstName: "",
             lastName: "",
+            tags: [],
             contactInformation: {
                 email: "",
                 phone: "",

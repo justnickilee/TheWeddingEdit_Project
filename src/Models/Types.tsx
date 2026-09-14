@@ -36,6 +36,7 @@ export type Guest = {
   id: string;
   firstName: string;
   lastName?: string;
+  tags: string[] 
   contactInformation?: ContactInformation;
   status?: Enums.GuestStatus;
   additionalGuests?: number;
