@@ -3,7 +3,6 @@ import type * as Types from '../Models/Types'
 import type { DbResult } from '../Models/DbResult'
 import * as Config from '../Configuration/config.ts'
 import { useState } from 'react';
-import uuid from 'react-uuid'
 
 let database: IDBDatabase;
 
@@ -84,13 +83,6 @@ export async function addGuest(newGuest: Types.Guest): Promise<DbResult> {
     };
 }
 
-
-/*
-    const result = useAddGuest({...});
-
-    return <div>{result.message}</div>
-*/
-
 export function useAddGuest(newGuest: Types.Guest): DbResult {
     const [result, setResult] = useState<DbResult>({
         wasSuccessful: false,
@@ -143,6 +135,10 @@ export async function getGuests(): Promise<Types.Guest[]> {
     // });
 }
 
+export async function getGuestTags(): Promise<Types.GuestTag[]> {
+    const promiseStore = getDbPromiseStore(Config.GuestTagsStoreName, 'readonly');
+    return await promiseStore.getAll<Types.GuestTag>();
+}
 
 function getDbPromiseStore(objectStoreName: string, mode: IDBTransactionMode) {
     function wrapInPromise<T>(request: IDBRequest<T>): Promise<T> {
