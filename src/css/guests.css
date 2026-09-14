@@ -29,6 +29,13 @@
     color: var(--background);
     font-weight: 700;
 }
+
+.guest-entry:not(:last-of-type) {
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--background-dark);
+}
+
 .guest-status-badge {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
