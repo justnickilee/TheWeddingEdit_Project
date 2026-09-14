@@ -85,3 +85,7 @@
     border-radius: 0.5rem;
     background-color: var(--background-dark);
 }
+
+#new-guest-note {
+    height: 200px;
+}

@@ -206,6 +206,8 @@ function NewGuestsForm() {
                 </select>
             </div>
 
+            <textarea id="new-guest-note" className="w-full" placeholder="Additional notes..."></textarea>
+
             <button className="btn bg-success" type="button" onClick={saveGuests}>Save Guest</button>
         </div>
     );
