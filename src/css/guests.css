@@ -73,3 +73,15 @@
 .guest-status-maybe-attending-icon {
     color: var(--secondary);
 }
+
+#guests-stats-row {
+    gap: 3rem;
+}
+
+.guests-stat {
+    width: 200px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--background-dark);
+}
