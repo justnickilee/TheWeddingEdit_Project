@@ -81,7 +81,11 @@ button:focus-visible {
 }
 
 textarea:focus,
-textarea:focus-visible {
+textarea:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible {
   outline: 1px solid var(--primary-dark);
 }
 
