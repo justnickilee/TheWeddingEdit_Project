@@ -9,6 +9,18 @@ import '../css/guests.css';
 export function Guests() {
     const [isAddingGuestsState, setIsAddingGuestsState] = useState(false);
     const [inGuestSelectModeState, setInGuestSelectModeState] = useState(false);
+    const [guestsState, setGuestsState] = useState(Array<Types.Guest>());
+    const [isLoadingState, setIsLoadingState] = useState(true);
+
+    useEffect(() => {
+        async function getGuestsFromIndexedDb() {
+            const guests = await DatabaseHandler.getGuests();
+            setGuestsState(guests);
+            setIsLoadingState(false);
+        }
+
+        getGuestsFromIndexedDb()
+    });
 
     return (
         <div id="guests-page" className={`flex flex-col justify-start items-start page ${isAddingGuestsState ? "adding-guests" : ""} ${inGuestSelectModeState ? "selecting-guests" : ""}`}>
@@ -28,7 +40,7 @@ export function Guests() {
                     <textarea id="guest-list-search" placeholder="Search Guests"></textarea>
                 </div>
                 <div id="guest-list">
-                    <GuestList isInGuestSelectMode={inGuestSelectModeState}/>
+                    <GuestList isInGuestSelectMode={inGuestSelectModeState} isLoadingState={isLoadingState} guests={guestsState}/>
                 </div>
             </div>
 
@@ -39,32 +51,21 @@ export function Guests() {
     );
 }
 
-function GuestList(props: { isInGuestSelectMode: boolean }) {
-    const [guestsState, setGuestsState] = useState(Array<Types.Guest>());
-    const [isLoadingState, setIsLoadingState] = useState(true);
+function GuestList(props: { isInGuestSelectMode: boolean, isLoadingState: boolean, guests: Array<Types.Guest> }) {
+    const guests = props.guests;
 
-    useEffect(() => {
-        async function getGuestsFromIndexedDb() {
-            const guests = await DatabaseHandler.getGuests();
-            setGuestsState(guests);
-            setIsLoadingState(false);
-        }
-
-        getGuestsFromIndexedDb()
-    });
-
-    if (isLoadingState) 
+    if (props.isLoadingState) 
         return (
             <div>Fetching your guests...</div>
         );
 
-    if (guestsState.length === 0) 
+    if (guests.length === 0) 
         return (
             <div>You can keep track of your wedding guests here. Click the button above to start adding your guests!</div>
         );
 
     return (
-        guestsState.map(guest => <GuestEntry guest={guest} isInGuestSelectMode={props.isInGuestSelectMode} key={guest.id} />)
+        guests.map(guest => <GuestEntry guest={guest} isInGuestSelectMode={props.isInGuestSelectMode} key={guest.id} />)
     );
 }
 
