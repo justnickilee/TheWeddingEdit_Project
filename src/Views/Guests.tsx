@@ -22,10 +22,13 @@ export function Guests() {
         getGuestsFromIndexedDb()
     });
 
-    function getTotalGuestCount() {
+    function getGuestCount(status? : Enums.GuestStatus) {
         var count = 0;
 
         guestsState.forEach(guest => {
+            if (status !== undefined && guest.status !== status)
+                return;
+
             count += guest.additionalGuests === undefined ? 1 : guest.additionalGuests + 1;
         });
 
