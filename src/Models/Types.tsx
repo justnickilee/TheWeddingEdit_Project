@@ -36,13 +36,19 @@ export type Guest = {
   id: string;
   firstName: string;
   lastName?: string;
-  tags: string[] 
+  tags: GuestTag[] 
   contactInformation?: ContactInformation;
   status?: Enums.GuestStatus;
   additionalGuests?: number;
   foodOrder?: string;
   note?: string;
   tableNumber?: number; 
+}
+
+export type GuestTag = {
+  id: string;
+  name: string;
+  color?: string;
 }
 
 export type Task = {
