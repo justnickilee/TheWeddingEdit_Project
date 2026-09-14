@@ -46,11 +46,19 @@ export function Guests() {
                 </button>
             </div>
 
-            <div id="manage-guests-view" className="w-full pt-3">
-                <div id="guests-stats-row" className={`w-full ${guestsState.length === 0 ? "hidden" : ""}`}>
+            <div id="manage-guests-view" className="w-full pt-4">
+                <div id="guests-stats-row" className={`w-full flex justify-center mb-3 ${guestsState.length === 0 ? "hidden" : ""}`}>
                     <div className="guests-stat">
                         <h4>Total Guests</h4>
-                        <h2>{getTotalGuestCount()}</h2>
+                        <h2>{getGuestCount()}</h2>
+                    </div>
+                    <div className="guests-stat">
+                        <h4>Invited</h4>
+                        <h2>{getGuestCount(Enums.GuestStatus.Invited)}</h2>
+                    </div>
+                    <div className="guests-stat">
+                        <h4>Attending</h4>
+                        <h2>{getGuestCount(Enums.GuestStatus.Attending)}</h2>
                     </div>
                 </div>
                 <div id="guest-list-controls" className="flex w-full justify-start gap-x-3 mb-3">
