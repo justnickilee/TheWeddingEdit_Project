@@ -98,7 +98,7 @@ function GuestEntry(props: { guest: Types.Guest, isInGuestSelectMode: boolean })
                 checked={props.isInGuestSelectMode && isSelectedState} 
                 onChange={e => setIsSelectedState(e.target.checked)}/>
             <span>{guestName}</span>
-            <span className="ml-auto" data-guest-status={guest.status}>{guest.status}</span>
+            <span className="guest-status-badge ml-auto" data-guest-status={guest.status}>{guest.status}</span>
         </div>
     );
 }

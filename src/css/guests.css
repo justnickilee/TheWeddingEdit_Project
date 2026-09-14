@@ -29,6 +29,27 @@
     color: var(--background);
     font-weight: 700;
 }
+.guest-status-badge {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    border-radius: 7px;
+}
+
+.guest-status-badge[data-guest-status="Invited"] {
+    background-color: var(--background-dark);
+}
+
+.guest-status-badge[data-guest-status="Attending"] {
+    background-color: var(--success);
+}
+
+.guest-status-badge[data-guest-status="Not Attending"] {
+    background-color: var(--danger);
+}
+
+.guest-status-badge[data-guest-status="Maybe Attending"] {
+    background-color: var(--secondary);
+}
 
 .guest-status-invited-icon {
     color: var(--background-dark);
